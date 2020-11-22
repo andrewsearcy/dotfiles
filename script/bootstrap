@@ -151,7 +151,7 @@ then
   fi
 fi
 
-jldeenMods () {
+andrewsearcyMods () {
   info "starting jldeen mods"
   #backup old bin, if exists
   if [ -d $HOME/bin ]; then
@@ -167,7 +167,7 @@ jldeenMods () {
   fi
 }
 
-jd_Symlinks () {
+as_Symlinks () {
   # symlink .dotfiles bin to ~
   ln -s $HOME/.dotfiles/bin $HOME/bin && success "symlink for $HOME/bin folder created"
 
@@ -195,12 +195,12 @@ jd_Symlinks () {
     fi
 }
 
-jdcolors () {
+asColors () {
   # colorls setup
   sudo gem install colorls && success 'ls colors have been configured'
 }
 
-jdcrontab () {
+asCrontab () {
   #crontab additions
   add_line "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
     if [[ $? -eq 0 ]]
@@ -235,9 +235,9 @@ jdcrontab () {
   success "speedtest-cli bandwidth.json created"
 }
 
-jditermConfig () {
+asitermConfig () {
   # iterm2 config
-  read -p "Do you currently use iTerm2 and would you like to set jldeen's custom colors? y/n " -n 1 -r
+  read -p "Do you currently use iTerm2 and would you like to set andrewsearcy's custom colors? y/n " -n 1 -r
   echo ''
   if [[ $REPLY =~ ^[Yy]$ ]]
   then
@@ -247,22 +247,22 @@ jditermConfig () {
     defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
       if [[ $? -eq 0 ]]
       then
-          success "successfully configured iTerm2 to use jldeen's custom colors..."
+          success "successfully configured iTerm2 to use andrewsearcy's custom colors..."
       else
-          fail "failed to apply jldeen's custom colors..." >&2
+          fail "failed to apply andrewsearcy's custom colors..." >&2
   fi
   else 
-      info "You chose not to use iTerm2 or jldeen's custom colors."
+      info "You chose not to use iTerm2 or andrewsearcy's custom colors."
   fi
 }
 
-jdFontSetup () {
+asFontSetup () {
   # install Source Code Pro nerd font
   cp $HOME/.dotfiles/Source\ Code\ Pro\ Nerd\ Font\ Complete.ttf /Library/Fonts
   success "Source Code Pro font copied successfully!"
 }
 
-jdconfigFix () {
+asConfigFix () {
   # .config permissions fix
   if [ -d "$HOME/.config" ]; then
     info "$HOME/.config doesn't exist, nothing to fix"
@@ -272,12 +272,12 @@ jdconfigFix () {
   fi
 }
 
-jldeenMods
-jd_Symlinks
-jdcolors
-#jdcrontab
-jditermConfig
-jdFontSetup
-jdconfigFix
+andrewsearcyMods
+as_Symlinks
+asColors
+#asCrontab
+asitermConfig
+asFontSetup
+asConfigFix
 
 success 'Badass macOS terminal installed!'

@@ -13,7 +13,7 @@ alias acse="/usr/local/bin/acs-engine"
 
 #####----------Run typegen and Spark app build-----------######
 alias spark="npm run generate-graphql-types && npm start"
-alias v="npm run typegen && ~/Desktop/cloud_integrations/spark_api/spark-api-appsync/vault-deploy.sh"
+alias v="npm run typegen && ~/Desktop/auctionedge/cloud_integrations/spark_api/spark-api-appsync/vault-deploy.sh"
 
 ##------SHENANIGANS------##
 alias sp="spotify"

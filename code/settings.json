@@ -14,7 +14,6 @@
     "terminal.integrated.fontSize": 11,
     "workbench.startupEditor": "newUntitledFile",
     "typescript.check.npmIsInstalled": false,
-    "window.zoomLevel": 1,
     "git.autofetch": true,
     // "workbench.colorTheme": "Visual Studio Dark"
     // "window.zoomLevel": 0,
@@ -80,5 +79,25 @@
     "[javascript]": {
         "editor.defaultFormatter": "HookyQR.beautify"
     },
+    "yaml.schemas": {
+        "file:///Users/andrewsearcy/.vscode/extensions/atlassian.atlascode-2.8.5/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+    },
+    "liveshare.presence": true,
+    "atlascode.jira.explorer.fetchAllQueryResults": false,
+    "atlascode.jira.lastCreateSiteAndProject": {
+        "siteId": "59f9c85e-f044-4f27-8f5d-da76b69a1273",
+        "projectKey": "AJM"
+    },
+    "atlascode.jira.enabled": true,
+    "atlascode.bitbucket.enabled": true,
+    "mssql.connections": [
+        {
+            "server": "{{put-server-name-here}}",
+            "database": "{{put-database-name-here}}",
+            "user": "{{put-username-here}}",
+            "password": "{{put-password-here}}"
+        }
+    ],
+    "window.zoomLevel": 1,
     
 }

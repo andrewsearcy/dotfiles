@@ -54,10 +54,10 @@
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "terminal.integrated.rendererType": "dom",
     "vs-kubernetes": {
-        "vs-kubernetes.helm-path": "/Users/jessicadeen/.vs-kubernetes/tools/helm/darwin-amd64/helm",
-        "vs-kubernetes.draft-path": "/Users/jessicadeen/.vs-kubernetes/tools/draft/darwin-amd64/draft",
-        "vs-kubernetes.minikube-path": "/Users/jessicadeen/.vs-kubernetes/tools/minikube/darwin-amd64/minikube",
-        "vs-kubernetes.kubectl-path": "/Users/jessicadeen/.vs-kubernetes/tools/kubectl/kubectl"
+        "vs-kubernetes.helm-path": "/Users/andrewsearcy/.vs-kubernetes/tools/helm/darwin-amd64/helm",
+        "vs-kubernetes.draft-path": "/Users/andrewsearcy/.vs-kubernetes/tools/draft/darwin-amd64/draft",
+        "vs-kubernetes.minikube-path": "/Users/andrewsearcy/.vs-kubernetes/tools/minikube/darwin-amd64/minikube",
+        "vs-kubernetes.kubectl-path": "/Users/andrewsearcy/.vs-kubernetes/tools/kubectl/kubectl"
     },
     "team.showWelcomeMessage": false,
     "workbench.colorTheme": "Night Owl",

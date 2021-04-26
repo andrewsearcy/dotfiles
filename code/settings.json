@@ -80,7 +80,7 @@
         "editor.defaultFormatter": "HookyQR.beautify"
     },
     "yaml.schemas": {
-        "file:///Users/andrewsearcy/.vscode/extensions/atlassian.atlascode-2.8.5/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+        "file:///Users/andrewsearcy/.vscode/extensions/atlassian.atlascode-2.8.6/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
     },
     "liveshare.presence": true,
     "atlascode.jira.explorer.fetchAllQueryResults": false,

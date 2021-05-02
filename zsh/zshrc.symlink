@@ -122,7 +122,7 @@ DEFAULT_USER="$(whoami)"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(sudo git history tmux tmuxinator zsh-autosuggestions zsh-completions zsh-z)
-plugins=(sudo git history tmux tmuxinator zsh-autosuggestions zsh-completions zsh-z hacker-quotes)
+#plugins=(sudo git history tmux tmuxinator zsh-autosuggestions zsh-completions zsh-z hacker-quotes)
 
 # User configuration
 

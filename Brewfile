@@ -33,6 +33,8 @@ brew 'yarn'
 brew 'youtube-dl'
 
 cask 'google-chrome'
+cask 'brave-browser'
+cask 'datagrip'
 cask 'handbrake'
 cask 'iterm2'
 cask 'slack'

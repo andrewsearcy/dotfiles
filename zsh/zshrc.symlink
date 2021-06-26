@@ -19,7 +19,7 @@ zstyle ':bracketed-paste-magic' active-widgets '.self-*'
 
 # zsh tmux settings
 ZSH_TMUX_AUTOSTART='true'
-ZSH_TMUX_AUTOCONNECT='false' # do not autoconnect to existing tmux session, allows a new term new tmux session
+#ZSH_TMUX_AUTOCONNECT='false' # do not autoconnect to existing tmux session, allows a new term new tmux session
 
 ######################
 # all of our zsh files
@@ -194,6 +194,17 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export LANG=en_US.UTF-8
 export PORT=3000
 export PATH="$PATH:$HOME/.rvm/bin"
+
+export ODS_DEV="db-ods.dev.edgeapps.net"
+export ODS_STAGE="db-ods.stage.edgeapps.net"
+export ODS_PROD="db-ods2.prod.edgeapps.net"
+export PGPASSFILE='/Users/andrewsearcy/.pgpass'
+#[pg-o-d]      PSQL To Dev ODS
+alias pg-o-d="psql -h${ODS_DEV} -Uusr_andrews -dods_dev"
+#[pg-o-s]      PSQL To Stage ODS
+alias pg-o-s="psql -h${ODS_STAGE} -Uusr_andrews -dods_stage"
+#[pg-o-p]      PSQL To Prod ODS
+alias pg-o-p="psql -h${ODS_PROD} -Uusr_andrews -dods_prod"
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 

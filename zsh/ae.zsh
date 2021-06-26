@@ -26,57 +26,97 @@ spark-env() {                    # shoutout to raymondd and andrews for the insp
   npm run generate-graphql-types && npm start ## or `spark` alias
 }
 
-# selection-menu() {
-#   # spiffy selection menu
-#   echo ''
-#   PS3=$'\n'"%F{green}Select an environment:%{$reset_color%} "
-#   if [ -z "$1" ]; then # if length arg != 0 (not empty string)
-#     files=($(find . -type f -iname "*.env*"))
-#     select file in "${files[@]}"; do
-#       if [ 1 -le "$REPLY" ] && [ "$REPLY" -le ${#files[@]} ]; then
-#         SELECTED_FILE=$file
-#         break
-#       else
-#         ERROR="Invalid entry. Select a number between \033[00;32m1\033[0m-\033[00;32m${#files[@]}\033[0m "
-#         printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $ERROR\n"
-#       fi
-#     done
-#   else
-#     USER_FILES=($(find . -type f -iname "*$1*" -maxdepth 2))
-#     if [ ${#USER_FILES[@]} -eq 1 ]; then
-#       SELECTED_FILE=$USER_FILES
-#     else
-#       select user_file in "${USER_FILES[@]}"; do
-#         if [ 1 -le "$REPLY" ] && [ "$REPLY" -le ${#USER_FILES[@]} ]; then
-#           SELECTED_FILE=$user_file
-#           break
-#         else
-#           ERROR="Invalid entry. Select a number between \033[00;32m1\033[0m-\033[00;32m${#USER_FILES[@]}\033[0m "
-#           printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $ERROR\n"
-#         fi
-#       done
-#     fi
-#   fi
-#   echo $SELECTED_FILE
-# }
-# spark-env() {                    # shoutout to raymondd and andrews for the inspiration
-#   SPARK=$(z -e edge-spark-react) # -e -- echo output without cd'ing to it
-#   cd $SPARK
-#   ENV_FILE=$(selection-menu $1)
-#   MESSAGE="Building Spark with \033[00;32m$ENV_FILE\033[0m variables"
-#   OK_MESSAGE="[ \033[00;32mOK\033[0m ] $MESSAGE"
-#   echo -n $OK_MESSAGE | boxes -d unicornsay
-#   set -a
-#   source $ENV_FILE
-#   set +a
-#   # cat $SPARK/.env.$1 > $SPARK/.env ## other option to avoid set
-#   npm run generate-graphql-types && npm start ## or `spark` alias
-# }
-# tg-source() {
-#   set -a
-#   ENV_FILE=$(selection-menu $1)
-#   echo $ENV_FILE
-#   source $ENV_FILE
-#   set +a
-#   npm run generate-graphql-types
-# }
+es() {
+  DEFAULT="amtest"
+  AUCTION=${3:-$DEFAULT}
+  echo ""
+  echo "============="
+  echo "\033[00;33mELASTIC-SEARCHING ....\033[0m"
+  echo "Stock Number [ \033[00;32m$1\033[0m ] "
+  echo "Environment: [ \033[00;32m${2:-dev}\033[0m ]"
+  echo "Auction: [ \033[00;32m$AUCTION\033[0m ]"
+  SEARCH_URL="https://vpc-dev-edge-spark-abjrfqwjnu4tkra7hugnfgwhe4.us-west-2.es.amazonaws.com"
+  STAGE_SEARCH_URL="https://vpc-stage-edge-spark-ayaymeuahm7sf5xwl6s4uvlfpe.us-west-2.es.amazonaws.com"
+  PROD_SEARCH_URL="https://vpc-prod-edge-spark-20210322-hor4s3m3tmg52beleuia5ux374.us-west-2.es.amazonaws.com"
+  if [ -n "$2" ]; then
+    if [ "$2" = "prod" ]; then
+      SEARCH_URL=$PROD_SEARCH_URL
+    elif [ "$2" = "stage" ]; then
+      SEARCH_URL=$STAGE_SEARCH_URL
+    fi
+    echo $SEARCH_URL
+  fi
+  PAYLOAD='{"track_total_hits": true,"track_scores": true,"query": {"bool": {"must": [{"match": {"auction_code": "'$AUCTION'"}},{"match": {"is_valid": "1"}},{"match": {"stock_number": "'"${1}"'"}}]}}}'
+  echo "============="
+  echo "\033[00;33mELASTICSEARCH RESPONSE ....\033[0m"
+  curl -XGET "$SEARCH_URL/a_vehicles/_search?pretty=true" -H 'Content-Type: application/json' -d"$PAYLOAD"
+  echo "Showing results for Stock Number [ \033[00;32m$1\033[0m ] "
+  echo "Environment: [ \033[00;32m${2:-dev}\033[0m ]"
+  echo "Auction: [ \033[00;32m$AUCTION\033[0m ]"
+}
+es-all() {
+  SEARCH_URL="https://vpc-dev-edge-spark-abjrfqwjnu4tkra7hugnfgwhe4.us-west-2.es.amazonaws.com"
+  STAGE_SEARCH_URL="https://vpc-stage-edge-spark-ayaymeuahm7sf5xwl6s4uvlfpe.us-west-2.es.amazonaws.com"
+  PROD_SEARCH_URL="https://vpc-prod-edge-spark-20210322-hor4s3m3tmg52beleuia5ux374.us-west-2.es.amazonaws.com"
+  if [ -n "$2" ]; then
+    if [ "$2" = "prod" ]; then
+      SEARCH_URL=$PROD_SEARCH_URL
+    elif [ "$2" = "stage" ]; then
+      SEARCH_URL=$STAGE_SEARCH_URL
+    fi
+    echo $SEARCH_URL
+  fi
+  PAYLOAD='{"track_total_hits": true,"track_scores": true,"query": {"bool": {"must": [{"match": {"is_valid": "1"}},{"match": {"stock_number": "'"${1}"'"}}]}}}'
+  curl -XGET "$SEARCH_URL/a_vehicles/_search?pretty=true" -H 'Content-Type: application/json' -d"$PAYLOAD"
+  echo "Showing results for Stock Number [ \033[00;32m$1\033[0m ] "
+  echo "Environment: [ \033[00;32m${2:-dev}\033[0m ]"
+  echo "Auction: [ \033[00;32mANY\033[0m ]"
+}
+es-go() {
+  echo "\033[00;33mLet's get you that vehicle up in Spark ....\033[0m"
+  echo "Stock Number [ \033[00;32m$1\033[0m ] "
+  echo "Environment: [ \033[00;32m${2:-dev}\033[0m ]"
+  echo "Auction: [ \033[00;32m${3:-amtest}\033[0m ]"
+  SEARCH=$(es $1 $2 $3)
+  ID=$(echo $SEARCH | ack "\"_id\" : \"([0-9]+)\"" --output '$1')
+  if [ "$2" = "prod" ]; then
+    open "https://spark.auctionedge.com/details/vehicles?id=$ID&auction=${3:-amtest}"
+  elif [ "$2" = "stage" ]; then
+    open "https://sparkpreview-stage.ext.edgeapps.net/details/vehicles?id=$ID&auction=${3:-amtest}"
+  else
+    open "https://sparkpreview.ext-dev.edgeapps.net/details/vehicles?id=$ID&auction=${3:-amtest}"
+  fi
+  # | ack "\"_id\" : \"([0-9]+)\"" --output '$1'
+}
+get-veh() {
+  echo "\033[00;33mGetting vehicle details ....\033[0m"
+  echo "Stock Number [ \033[00;32m$1\033[0m ] "
+  echo "Environment: [ \033[00;32m${2:-dev}\033[0m ]"
+  echo "Auction: [ \033[00;32m${3:-amtest}\033[0m ]"
+  SEARCH=$(es $1 $2 $3)
+  ID=$(echo $SEARCH | ack "\"_id\" : \"([0-9]+)\"" --output '$1')
+  echo "Asset ID: [ \033[00;32m$ID\033[0m ]"
+  echo ''
+  if [ "$2" = "prod" ]; then
+    pg-o-p -xc"SELECT * FROM ods.get_vehicle_details($ID, '${3:-amtest}');"
+  elif [ "$2" = "stage" ]; then
+    pg-o-s -xc"SELECT * FROM ods.get_vehicle_details($ID, '${3:-amtest}');"
+  else
+    pg-o-d -xc"SELECT * FROM ods.get_vehicle_details($ID, '${3:-amtest}');"
+  fi
+}
+
+es-i() {
+  SEARCH_URL="https://vpc-dev-edge-spark-abjrfqwjnu4tkra7hugnfgwhe4.us-west-2.es.amazonaws.com"
+  STAGE_SEARCH_URL="https://vpc-stage-edge-spark-ayaymeuahm7sf5xwl6s4uvlfpe.us-west-2.es.amazonaws.com"
+  PROD_SEARCH_URL="https://vpc-prod-edge-spark-20210322-hor4s3m3tmg52beleuia5ux374.us-west-2.es.amazonaws.com"
+  if [ -n "$1" ]; then
+    if [ "$1" = "prod" ]; then
+      SEARCH_URL=$PROD_SEARCH_URL
+    elif [ "$1" = "stage" ]; then
+      SEARCH_URL=$STAGE_SEARCH_URL
+    fi
+    echo $SEARCH_URL
+  fi
+curl -XGET "$SEARCH_URL/_cat/indices?v"
+}
